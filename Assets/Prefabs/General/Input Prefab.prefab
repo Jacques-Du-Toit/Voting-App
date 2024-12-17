@@ -493,6 +493,7 @@ GameObject:
   - component: {fileID: 4741690088713536245}
   - component: {fileID: 5126619782948788928}
   - component: {fileID: 8166076173009391038}
+  - component: {fileID: 508861642560101822}
   m_Layer: 5
   m_Name: Input Prefab
   m_TagString: Untagged
@@ -621,16 +622,16 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: CondorcetSystem, Assembly-CSharp
-        m_MethodName: SetVoters
-        m_Mode: 1
+      - m_Target: {fileID: 508861642560101822}
+        m_TargetAssemblyTypeName: InputFieldGrabber, Assembly-CSharp
+        m_MethodName: GrabFromInputField
+        m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: String
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
   m_OnSubmit:
@@ -672,3 +673,16 @@ MonoBehaviour:
   isAlert: 0
   m_InputValidator: {fileID: 0}
   m_ShouldActivateOnSelect: 1
+--- !u!114 &508861642560101822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5371389674060210893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075f631a3649ac8428ddceb645d7b1ec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  reactionGroup: {fileID: 0}
