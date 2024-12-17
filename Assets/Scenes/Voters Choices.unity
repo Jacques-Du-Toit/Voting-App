@@ -235,14 +235,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 37596472}
     m_Modifications:
+    - target: {fileID: 295602440293301274, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
+      propertyPath: m_text
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960803367829275177, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
+      propertyPath: m_text
+      value: Number of Voters
+      objectReference: {fileID: 0}
     - target: {fileID: 5371389674060210893, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
       propertyPath: m_Name
-      value: Input Prefab
+      value: Voter Input
+      objectReference: {fileID: 0}
+    - target: {fileID: 7889230030547262935, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
+      propertyPath: fieldType
+      value: number of voters
       objectReference: {fileID: 0}
     - target: {fileID: 7889230030547262935, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
       propertyPath: receiverObject
       value: 
       objectReference: {fileID: 143820452}
+    - target: {fileID: 8166076173009391038, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
+      propertyPath: m_ContentType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166076173009391038, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
+      propertyPath: m_KeyboardType
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166076173009391038, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
+      propertyPath: m_CharacterLimit
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8166076173009391038, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
+      propertyPath: m_CharacterValidation
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 8204496091520010060, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
