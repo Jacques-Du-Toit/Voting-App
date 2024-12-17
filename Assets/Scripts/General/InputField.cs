@@ -10,16 +10,14 @@ public class InputField : MonoBehaviour
 
     private void Start()
     {
-        print(gameObject.name);
-
         if (receiverObject == null) {
-            Debug.Log("No reciever object for input.");
+            Debug.LogError("No reciever object for input.");
         }
 
         receiver = receiverObject.GetComponent<IInputReceiver>();
 
         if (receiver == null) {
-            Debug.Log("Object does not implement IInputReceiver.");
+            Debug.LogError("Object does not implement IInputReceiver.");
         }
     }
 
