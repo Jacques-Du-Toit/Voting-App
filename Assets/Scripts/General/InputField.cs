@@ -5,23 +5,23 @@ public class InputField : MonoBehaviour
 {
     [SerializeField] TMP_InputField thisField;
 
-    [SerializeField] GameObject reactionObject;
+    [SerializeField] GameObject receiverObject;
     IInputReceiver receiver;
 
     private void Start()
     {
-        if (reactionObject == null) {
+        if (receiverObject == null) {
             Debug.Log("No reciever object for input.");
         }
 
-        receiver = reactionObject.GetComponent<IInputReceiver>();
+        receiver = receiverObject.GetComponent<IInputReceiver>();
 
-        if (receiver != null) {
+        if (receiver == null) {
             Debug.Log("Object does not implement IInputReceiver.");
         }
     }
 
-    public void GrabFromInputField()
+    public void SendInput()
     {
         receiver.ReceiveInput(thisField.text, "input field type");
         thisField.text = "";

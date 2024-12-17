@@ -493,7 +493,7 @@ GameObject:
   - component: {fileID: 4741690088713536245}
   - component: {fileID: 5126619782948788928}
   - component: {fileID: 8166076173009391038}
-  - component: {fileID: 508861642560101822}
+  - component: {fileID: 7889230030547262935}
   m_Layer: 5
   m_Name: Input Prefab
   m_TagString: Untagged
@@ -622,25 +622,13 @@ MonoBehaviour:
   m_OnEndEdit:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 508861642560101822}
-        m_TargetAssemblyTypeName: InputFieldGrabber, Assembly-CSharp
-        m_MethodName: GrabFromInputField
+      - m_Target: {fileID: 7889230030547262935}
+        m_TargetAssemblyTypeName: InputField, Assembly-CSharp
+        m_MethodName: SendInput
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5371389674060210893}
-        m_TargetAssemblyTypeName: InputFieldGrabber, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -685,7 +673,7 @@ MonoBehaviour:
   isAlert: 0
   m_InputValidator: {fileID: 0}
   m_ShouldActivateOnSelect: 1
---- !u!114 &508861642560101822
+--- !u!114 &7889230030547262935
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -694,7 +682,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5371389674060210893}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 075f631a3649ac8428ddceb645d7b1ec, type: 3}
+  m_Script: {fileID: 11500000, guid: 0b28eb7e772759847a5dd31bbf3fa9db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reactionGroup: {fileID: 0}
+  thisField: {fileID: 8166076173009391038}
+  reactionObject: {fileID: 0}
