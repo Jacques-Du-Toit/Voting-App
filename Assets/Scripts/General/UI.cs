@@ -9,9 +9,10 @@ public class UI : MonoBehaviour, IInputReceiver
         Instantiate(CondorcetSystem, canvas.transform);
     }
 
-    public void ReceiveInput(string inputText, string inputType)
+    public void ReceiveInput(string inputText, GameObject inputField)
     {
         print(inputText);
-        print(inputType);
+        print(inputField.name);
+        inputField.SetActive(false);
     }
 }

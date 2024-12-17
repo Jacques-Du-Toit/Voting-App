@@ -4,13 +4,14 @@ using TMPro;
 public class InputField : MonoBehaviour
 {
     [SerializeField] TMP_InputField thisField;
-    [SerializeField] string fieldType; // what is this input field for (e.g. "number of voters")
 
     [SerializeField] GameObject receiverObject;
     IInputReceiver receiver;
 
     private void Start()
     {
+        print(gameObject.name);
+
         if (receiverObject == null) {
             Debug.Log("No reciever object for input.");
         }
@@ -24,7 +25,7 @@ public class InputField : MonoBehaviour
 
     public void SendInput()
     {
-        receiver.ReceiveInput(thisField.text, fieldType);
+        receiver.ReceiveInput(thisField.text, gameObject);
         thisField.text = "";
         thisField.ActivateInputField();
     }
