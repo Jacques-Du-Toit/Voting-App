@@ -3,14 +3,21 @@ using TMPro;
 
 public class InputFieldGrabber : MonoBehaviour
 {
-    private string inputText;
+    TMP_InputField thisField;
+    string input;
 
     // The object that should react to the input
-    [SerializeField] private GameObject reactionGroup;
+    [SerializeField] GameObject reactionGroup;
 
-    public void GrabFromInputField(string input)
+    private void Start()
     {
-        inputText = input;
-        print(inputText);
+        thisField = GetComponent<TMP_InputField>();
+    }
+
+    public void GrabFromInputField()
+    {
+        input = thisField.text;
+        thisField.text = "";
+        thisField.ActivateInputField();
     }
 }

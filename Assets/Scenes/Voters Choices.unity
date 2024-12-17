@@ -214,7 +214,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 390767639}
-  - {fileID: 1842138488}
+  - {fileID: 326472345}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -283,6 +283,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6363e041cbe521d4d85a2c833df126ce, type: 3}
+--- !u!224 &326472345 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8204496091520010060, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
+  m_PrefabInstance: {fileID: 1725252302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &390767638
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +455,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1842138487
+--- !u!1001 &1725252302
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -458,29 +463,9 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 37596472}
     m_Modifications:
-    - target: {fileID: 295602440293301274, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
-      propertyPath: m_text
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 295602440293301274, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 535767855881021042, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
-      propertyPath: m_Name
-      value: Text Above
-      objectReference: {fileID: 0}
-    - target: {fileID: 1960803367829275177, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
-      propertyPath: m_text
-      value: Number of Voters?
-      objectReference: {fileID: 0}
     - target: {fileID: 5371389674060210893, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
       propertyPath: m_Name
-      value: Voter Input
-      objectReference: {fileID: 0}
-    - target: {fileID: 8166076173009391038, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
-      propertyPath: m_Text
-      value: 
+      value: Input Prefab
       objectReference: {fileID: 0}
     - target: {fileID: 8204496091520010060, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
       propertyPath: m_Pivot.x
@@ -562,20 +547,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8433361418133976741, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
-      propertyPath: m_text
-      value: "\u200B"
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
---- !u!224 &1842138488 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 8204496091520010060, guid: ad870b4b58fc0fd48ab398ce45c9f9be, type: 3}
-  m_PrefabInstance: {fileID: 1842138487}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2011570891
 GameObject:
   m_ObjectHideFlags: 0
