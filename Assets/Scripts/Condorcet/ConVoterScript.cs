@@ -9,6 +9,6 @@ public class ConVoterScript : MonoBehaviour
     private void Start()
     {
         condorcetScript = GameObject.FindAnyObjectByType<CondorcetSystem>();
-        voterText.text = $"Voter {condorcetScript.voterIndex}";
+        //voterText.text = $"Voter {condorcetScript.voterIndex}";
     }
 }

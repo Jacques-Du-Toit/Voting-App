@@ -12,9 +12,9 @@ public class UI : MonoBehaviour, IInputReceiver
 
     [SerializeField] GameObject voterField;
     [SerializeField] GameObject choicesParent;
+    [SerializeField] GameObject systemsParent;
 
     Dictionary<string, Action<string>> inputFieldActions;
-    bool isVoters = true;
 
     [SerializeField] TMP_Text votersText;
 
@@ -58,7 +58,6 @@ public class UI : MonoBehaviour, IInputReceiver
                 // When we hit a _, grab the next item and add it to the list
                 i++; // Skip over the _
                 nextItem = str.Substring(i, int.Parse(itemLength));
-                print(nextItem);
                 list.Add(nextItem);
                 // Skip to next number and reset itemLength
                 i += int.Parse(itemLength);
@@ -71,7 +70,9 @@ public class UI : MonoBehaviour, IInputReceiver
     public void SaveData()
     {
         PlayerPrefs.SetInt("Voters", voters);
+        Data.voters = voters;
         PlayerPrefs.SetString("Choices", ListToString(choices));
+        Data.choices = choices;
     }
 
     public void LoadData()
@@ -83,10 +84,6 @@ public class UI : MonoBehaviour, IInputReceiver
         {
             CreateChoiceButton(choice);
         }
-
-        print("Here");
-        print(voters);
-        print(ListToString(choices));
     }
 
     private void Start()
@@ -123,13 +120,13 @@ public class UI : MonoBehaviour, IInputReceiver
         // Check for invalid input
         if (!int.TryParse(votersInput, out voters) || voters <= 0)
         {
-            print($"{votersInput} is not a valid number of voters.");
+            Debug.LogWarning($"{votersInput} is not a valid number of voters.");
             return;
         }
         // Update Voters Button
         votersText.text = $"Voters: {votersInput}";
         // Deactivate voter field and activate the choices field
-        SwitchInput();
+        SwitchInput("choices");
     }
 
     private void CreateChoiceButton(string choiceInput)
@@ -153,16 +150,14 @@ public class UI : MonoBehaviour, IInputReceiver
 
     public void RemoveChoice(string choice)
     {
-        print(ListToString(choices));
-        print( StringToList(ListToString(choices)) );
         choices.Remove(choice);
         SaveData();
     }
 
-    public void SwitchInput()
+    public void SwitchInput(string layout)
     {
-        choicesParent.SetActive(isVoters);
-        voterField.SetActive(!isVoters);
-        isVoters = !isVoters;
+        voterField.SetActive(layout == "voters");
+        choicesParent.SetActive(layout == "choices");
+        systemsParent.SetActive(layout == "systems");
     }
 }

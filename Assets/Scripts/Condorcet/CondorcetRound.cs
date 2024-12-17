@@ -20,7 +20,7 @@ public class CondorcetRound : MonoBehaviour
     {
         condorcetScript = GameObject.FindAnyObjectByType<CondorcetSystem>();
     }
-
+    /*
     public void VoteOnOne()
     {
         // Increments choice1's vote by 1
@@ -39,4 +39,5 @@ public class CondorcetRound : MonoBehaviour
         condorcetScript.roundIndex++;
         condorcetScript.CheckForNextRound();
     }
+    */
 }
