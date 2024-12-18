@@ -3,21 +3,22 @@ using TMPro;
 
 public class ChoiceButton : MonoBehaviour
 {
-    public TMP_Text choiceText;
+    [SerializeField] TMP_Text choiceText;
+    UI UIScript; 
+
+    private void Start()
+    {
+        UIScript = GameObject.FindAnyObjectByType<UI>();
+    }
+
     public void AddText(string choice)
     {
         choiceText.text = choice;
     }
 
-    CondorcetSystem condorcetScript;
-    private void Start()
-    {
-        condorcetScript = GameObject.FindAnyObjectByType<CondorcetSystem>();
-    }
-
     public void RemoveChoice()
     {
-        condorcetScript.RemoveChoice(choiceText.text);
+        UIScript.RemoveChoice(choiceText.text);
         Destroy(gameObject);
     }
 }
