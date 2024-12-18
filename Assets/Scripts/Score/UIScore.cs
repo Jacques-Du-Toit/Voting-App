@@ -36,24 +36,14 @@ public class UIScore : MonoBehaviour
 
     void SetCurrentSystem(int i)
     {
+        // Update the voter text
         whichVoter.text = $"Voter {i + 1}";
-        if (i == 0)
-        {
-            prevText.text = "Options";
-        }
-        else
-        {
-            prevText.text = $"Voter {i}";
-        }
 
-        if (i == voters - 1)
-        {
-            nextText.text = "Results";
-        }
-        else
-        {
-            nextText.text = $"Voter {i+2}";
-        }
+        // Update "previous" button text
+        prevText.text = (i == 0) ? "Options" : $"Voter {i}";
+
+        // Update "next" button text
+        nextText.text = (i == voters - 1) ? "Results" : $"Voter {i + 2}";
 
         for (int j = 0; j < voters; j++)
         {
