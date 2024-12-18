@@ -51,18 +51,19 @@ public class UIScore : MonoBehaviour
         }
     }
 
-    void ChangeSystem(int direction)
+    public void ChangeSystem(int direction)
     {
         currentSystem += direction;
 
-        if (currentSystem < 0)
+        if (currentSystem < 0 || currentSystem == voters + 1)
         {
             SceneManager.LoadScene("Options");
         }
         SetCurrentSystem(currentSystem);
         if (currentSystem >= voters)
         {
-            
+            whichVoter.text = "";
+            nextText.text = "Options";
         }
     }
 }
