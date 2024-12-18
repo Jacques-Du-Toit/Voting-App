@@ -11,6 +11,7 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] GameObject choiceParent;
 
     Dictionary<string, ChoiceParent> choiceScripts;
+    Dictionary<string, int> choiceScores = new Dictionary<string, int>();
 
     int voters;
     List<string> choices;
@@ -93,7 +94,10 @@ public class ScoreSystem : MonoBehaviour
         // Update the score text
         TMP_InputField scoreField = choiceScripts[choice].scoreInput;
         scoreField.text = score.ToString();
+        // Update the score in that object
         choiceScripts[choice].score = score;
+        // Update the scores dictionary used for results
+        choiceScores[choice] = score;
 
         // Update the color
         ChangeColor(scoreField, score);
