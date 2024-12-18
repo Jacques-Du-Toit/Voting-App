@@ -21,7 +21,7 @@ public class ScoreInput : MonoBehaviour
 
     public void SendClicked()
     {
-        scoreScript.ChangeOrder(parentChoice, 0);
+        parentChoice.transform.SetAsFirstSibling();
     }
 }
 

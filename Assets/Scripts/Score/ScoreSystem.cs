@@ -67,9 +67,16 @@ public class ScoreSystem : MonoBehaviour
         scoreField.colors = colors;
     }
 
-    public void ChangeOrder(GameObject choiceObject, int pos)
+    void ChangeOrder(GameObject choiceObject, int pos)
     {
         choiceObject.transform.SetSiblingIndex(pos);
+    }
+
+    void CalculateOrder(string choice, int score)
+    {
+        GameObject thisChild = choiceScripts[choice].gameObject;
+
+        
     }
 
     void ChangeScore(string choice, int score)
@@ -77,6 +84,7 @@ public class ScoreSystem : MonoBehaviour
         // Update the score text
         TMP_InputField scoreField = choiceScripts[choice].scoreInput;
         scoreField.text = score.ToString();
+        choiceScripts[choice].score = score;
 
         // Update the color
         ChangeColor(scoreField, score);
