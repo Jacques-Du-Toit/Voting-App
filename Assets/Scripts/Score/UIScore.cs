@@ -1,8 +1,14 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIScore : MonoBehaviour
 {
     [SerializeField] GameObject canvas;
+    [SerializeField] TMP_Text whichVoter;
+    [SerializeField] TMP_Text prevText;
+    [SerializeField] TMP_Text nextText;
+    [SerializeField] GameObject results;
 
     [SerializeField] GameObject scoreSystem;
     GameObject[] systems;
@@ -30,9 +36,43 @@ public class UIScore : MonoBehaviour
 
     void SetCurrentSystem(int i)
     {
+        whichVoter.text = $"Voter {i + 1}";
+        if (i == 0)
+        {
+            prevText.text = "Options";
+        }
+        else
+        {
+            prevText.text = $"Voter {i}";
+        }
+
+        if (i == voters - 1)
+        {
+            nextText.text = "Results";
+        }
+        else
+        {
+            nextText.text = $"Voter {i+2}";
+        }
+
         for (int j = 0; j < voters; j++)
         {
             systems[j].SetActive(i == j);
+        }
+    }
+
+    void ChangeSystem(int direction)
+    {
+        currentSystem += direction;
+
+        if (currentSystem < 0)
+        {
+            SceneManager.LoadScene("Options");
+        }
+        SetCurrentSystem(currentSystem);
+        if (currentSystem >= voters)
+        {
+            
         }
     }
 }
