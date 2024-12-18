@@ -20,8 +20,9 @@ public class ScoreSystem : MonoBehaviour
         voters = Data.voters;
         choices = Data.choices;
         
+        // REMOVE AFTER
         voters = 3;
-        choices = new List<string>{ "a", "b", "c" };
+        choices = new List<string>{ "a", "b", "c", "d", "e" };
 
         InitialiseChoices();
     }
@@ -96,7 +97,7 @@ public class ScoreSystem : MonoBehaviour
     }
 
 
-    public void ReceiveScore(string input, string choice)
+    public void ReceiveScore(string choice, string input)
     {
         int score = int.Parse(input);
         score = Mathf.Clamp(score, -5, 5);
