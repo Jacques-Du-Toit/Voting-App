@@ -22,7 +22,7 @@ public class ScoreSystem : MonoBehaviour
         
         // REMOVE AFTER
         voters = 3;
-        choices = new List<string>{ "a", "b", "c", "d", "e" };
+        choices = new List<string>{ "movie", "show", "book", "game", "arm-wrestle", "looooooooong optioooooooon", "first 20 mins of tomorrow i", "c", "e", "f", "g", "z", "m", "n", "hello this is a really long option to test the limits of the button" };
 
         InitialiseChoices();
     }
@@ -81,8 +81,6 @@ public class ScoreSystem : MonoBehaviour
             if (childPos == thisPos || score < childScore) { continue; }
             else
             {
-                print(childScore);
-                print(score);
                 thisPos.SetSiblingIndex(i - 1);
                 return;
             }

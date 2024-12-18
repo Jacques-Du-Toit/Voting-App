@@ -34,8 +34,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -1}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -67.76843, y: 1.185997}
+  m_SizeDelta: {x: -161.7699, y: -16.0313}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7428004257754160459
 CanvasRenderer:
@@ -188,6 +188,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   choiceText: {fileID: 1478358365835013133}
   scoreInput: {fileID: 1647905474098684178}
+  score: 0
 --- !u!1 &2378594342357955723
 GameObject:
   m_ObjectHideFlags: 0
