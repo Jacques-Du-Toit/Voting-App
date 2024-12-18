@@ -67,9 +67,9 @@ public class ScoreSystem : MonoBehaviour
         scoreField.colors = colors;
     }
 
-    void ChangeOrder(string choice, int score)
+    public void ChangeOrder(GameObject choiceObject, int pos)
     {
-        // Rearranges the children inside the parent based on their score
+        choiceObject.transform.SetSiblingIndex(pos);
     }
 
     void ChangeScore(string choice, int score)
