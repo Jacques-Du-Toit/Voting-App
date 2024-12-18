@@ -68,16 +68,26 @@ public class ScoreSystem : MonoBehaviour
         scoreField.colors = colors;
     }
 
-    void ChangeOrder(GameObject choiceObject, int pos)
-    {
-        choiceObject.transform.SetSiblingIndex(pos);
-    }
-
     void CalculateOrder(string choice, int score)
     {
-        GameObject thisChild = choiceScripts[choice].gameObject;
+        Transform parentPos = content.transform;
+        Transform thisPos = choiceScripts[choice].gameObject.transform;
 
-        
+        for (int i = 0; i < parentPos.childCount; i++)
+        {
+            Transform childPos = parentPos.GetChild(i);
+            int childScore = childPos.GetComponent<ChoiceParent>().score;
+
+            if (childPos == thisPos || score < childScore) { continue; }
+            else
+            {
+                print(childScore);
+                print(score);
+                thisPos.SetSiblingIndex(i - 1);
+                return;
+            }
+        }
+        thisPos.SetAsLastSibling();
     }
 
     void ChangeScore(string choice, int score)
@@ -91,6 +101,7 @@ public class ScoreSystem : MonoBehaviour
         ChangeColor(scoreField, score);
 
         // Change order in scene
+        CalculateOrder(choice, score);
 
         // Deactivate InputField
         scoreField.DeactivateInputField();

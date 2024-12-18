@@ -22,6 +22,7 @@ public class ScoreInput : MonoBehaviour
     {
         if (thisField.text == "") {
             thisField.colors = nullColors;
+            parentChoice.GetComponent<ChoiceParent>().score = 42;
             return;
         }
         scoreScript.ReceiveScore(choiceText.text, thisField.text);
