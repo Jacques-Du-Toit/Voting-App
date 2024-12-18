@@ -18,10 +18,6 @@ public class ScoreSystem : MonoBehaviour
     {
         voters = Data.voters;
         choices = Data.choices;
-        
-        // REMOVE AFTER
-        voters = 3;
-        choices = new List<string> { "movie", "show", "book", "game", "arm-wrestle", "looooooooong optioooooooon", "first 20 mins of tomorrow i" };
 
         InitialiseChoices();
     }
