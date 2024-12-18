@@ -1,9 +1,7 @@
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
-using UnityEngine.SocialPlatforms;
 
 public class ScoreSystem : MonoBehaviour
 {
@@ -11,7 +9,7 @@ public class ScoreSystem : MonoBehaviour
     [SerializeField] GameObject choiceParent;
 
     Dictionary<string, ChoiceParent> choiceScripts;
-    Dictionary<string, int> choiceScores = new Dictionary<string, int>();
+    public Dictionary<string, int> choiceScores = new Dictionary<string, int>();
 
     int voters;
     List<string> choices;
@@ -23,7 +21,7 @@ public class ScoreSystem : MonoBehaviour
         
         // REMOVE AFTER
         voters = 3;
-        choices = new List<string>{ "movie", "show", "book", "game", "arm-wrestle", "looooooooong optioooooooon", "first 20 mins of tomorrow i", "c", "e", "f", "g", "z", "m", "n", "hello this is a really long option to test the limits of the button" };
+        choices = new List<string> { "movie", "show", "book", "game", "arm-wrestle", "looooooooong optioooooooon", "first 20 mins of tomorrow i" };
 
         InitialiseChoices();
     }
