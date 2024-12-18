@@ -15,7 +15,7 @@ public class ScoreInput : MonoBehaviour
     private void Start()
     {
         nullColors = thisField.colors;
-        scoreScript = GameObject.Find("Score System").GetComponent<ScoreSystem>();
+        scoreScript = transform.GetComponentInParent<ScoreSystem>();
     }
 
     public void SendInput()
