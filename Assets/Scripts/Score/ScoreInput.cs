@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class ScoreInput : MonoBehaviour
 {
@@ -9,14 +10,21 @@ public class ScoreInput : MonoBehaviour
 
     ScoreSystem scoreScript;
 
+    ColorBlock nullColors;
+
     private void Start()
     {
+        nullColors = thisField.colors;
         scoreScript = GameObject.Find("Score System").GetComponent<ScoreSystem>();
     }
 
     public void SendInput()
     {
-        scoreScript.ReceiveScore(thisField.text, choiceText.text);
+        if (thisField.text == "") {
+            thisField.colors = nullColors;
+            return;
+        }
+        scoreScript.ReceiveScore(choiceText.text, thisField.text);
     }
 
     public void SendClicked()
