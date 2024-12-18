@@ -9,6 +9,15 @@ public class ConVoterScript : MonoBehaviour
     private void Start()
     {
         condorcetScript = GameObject.FindAnyObjectByType<CondorcetSystem>();
-        //voterText.text = $"Voter {condorcetScript.voterIndex}";
+        voterText.text = $"Voter {condorcetScript.voter}";
+        StartCoroutine(ShowVoter());
+    }
+
+    IEnumerator<WaitForSeconds> ShowVoter()
+    {
+        yield return new WaitForSeconds(1f);
+        condorcetScript.roundIndex = 0;
+        condorcetScript.NextRound();
+        Destroy(gameObject);
     }
 }
