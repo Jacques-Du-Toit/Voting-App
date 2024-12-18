@@ -25,9 +25,6 @@ public class UIScore : MonoBehaviour
         voters = Data.voters;
         choices = Data.choices;
 
-        voters = 3;
-        choices = new List<string> { "movie", "show", "book", "game", "arm-wrestle", "looooooooong optioooooooon", "first 20 mins of tomorrow i" };
-
         systems = new GameObject[voters];
         InitialiseSystems();
         SetCurrentSystem(currentSystem);
