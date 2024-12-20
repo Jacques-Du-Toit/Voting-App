@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using System.Linq;
 
@@ -8,11 +7,28 @@ public class ResultScore : MonoBehaviour
     [SerializeField] GameObject content;
     [SerializeField] GameObject statsTable;
     [SerializeField] GameObject statsRow;
+    [SerializeField] GameObject scoreDifferences;
 
     public void RunResults(Dictionary<string, int[]> choiceScores, Dictionary<string, int[]> voterScores)
     {
+        choiceScores = new Dictionary<string, int[]>() {
+            { "movie", new int[] { 1, 2, -3, -5 } },
+            { "show", new int[]  { 2, 1, -2, -4 } },
+            { "game", new int[] { -1, -1, 3, 5 } },
+        };
+
+        voterScores = new Dictionary<string, int[]>()
+        {
+            { "1", new int[] { 1, 2, -1 } },
+            { "2", new int[] { 2, 1, -1 } },
+            { "3", new int[] { -3, -2, 3 } },
+            { "4", new int[] { -5, -4, 5 } },
+        };
+
+
         GenericTable("Option", choiceScores, true);
         GenericTable("Voter", voterScores, false);
+        VoterSimilarity(voterScores);
     }
 
     void GenericTable(string name, Dictionary<string, int[]> indexValues, bool addMapping)
@@ -41,7 +57,7 @@ public class ResultScore : MonoBehaviour
             {
                 title += $"{i + 1}: {keys[i]}, ";
             }
-            title.TrimEnd(' ', ',');
+            title = title.TrimEnd(' ', ',');
             title += "</size>\n";
         }
         thisTableStats.GetComponent<Table>().SetTitle(title);
@@ -64,5 +80,12 @@ public class ResultScore : MonoBehaviour
             c++;
         }
         thisTableStats.GetComponent<Table>().ColorTable();
+    }
+
+    void VoterSimilarity(Dictionary<string, int[]> voterScores)
+    {
+        GameObject thisScoreDiff;
+        thisScoreDiff = Instantiate(scoreDifferences, content.transform);
+        thisScoreDiff.GetComponent<ScoreDifferences>().VoterSimilarity(voterScores);
     }
 }
