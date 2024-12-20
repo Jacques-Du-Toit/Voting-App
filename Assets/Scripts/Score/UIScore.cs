@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -58,15 +59,15 @@ public class UIScore : MonoBehaviour
         }
     }
 
-    Dictionary<string, int[]> CountScores()
+    Dictionary<string, int[]> CountChoiceScores()
     {
-        Dictionary<string, int[]> allScores = new Dictionary<string, int[]>();
+        Dictionary<string, int[]> choiceScores = new Dictionary<string, int[]>();
         Dictionary<string, int> systemScores = new Dictionary<string, int>();
         int score;
 
         foreach (string choice in choices)
         {
-            allScores[choice] = new int[voters];
+            choiceScores[choice] = new int[voters];
         }
 
         for (int i = 0;i < voters; i++)
@@ -75,16 +76,34 @@ public class UIScore : MonoBehaviour
             foreach(var entry in systemScores)
             {
                 score = entry.Value;
-                // Check for dummt score
+                // Check for dummy score
                 if (score == 42)
                 {
                     score = 0;
                 }
-                allScores[entry.Key][i] = entry.Value;
+                choiceScores[entry.Key][i] = entry.Value;
             }
 
         }
-        return allScores;
+        return choiceScores;
+    }
+
+    Dictionary<string, int[]> CountVoterScores()
+    {
+        Dictionary<string, int[]> voterScores = new Dictionary<string, int[]>();
+        Dictionary<string, int> systemScores = new Dictionary<string, int>();
+
+        for(int v = 1; v <= voters; v++)
+        {
+            voterScores[v.ToString()] = new int[choices.Count];
+        }
+
+        for (int i = 0; i < voters; i++)
+        {
+            systemScores = systems[i].GetComponent<ScoreSystem>().choiceScores;
+            voterScores[(i + 1).ToString()] = systemScores.Values.ToArray();
+        }
+        return voterScores;
     }
 
     public void ChangeSystem(int direction)
@@ -103,7 +122,7 @@ public class UIScore : MonoBehaviour
             whichVoter.text = "";
             nextText.text = "Options";
             title.text = "Results";
-            results.GetComponent<ResultScore>().RunResults(CountScores());
+            results.GetComponent<ResultScore>().RunResults(CountChoiceScores(), CountVoterScores());
             results.SetActive(true);
         }
         else

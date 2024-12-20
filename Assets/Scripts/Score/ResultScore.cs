@@ -6,47 +6,45 @@ using System.Linq;
 public class ResultScore : MonoBehaviour
 {
     [SerializeField] GameObject content;
-    [SerializeField] TMP_Text resultText;
     [SerializeField] GameObject statsTable;
     [SerializeField] GameObject statsRow;
 
-    public void RunResults(Dictionary<string, int[]> scores)
+    public void RunResults(Dictionary<string, int[]> choiceScores, Dictionary<string, int[]> voterScores)
     {
-        scores = new Dictionary<string, int[]> {
-            { "choice 1", new int[] { 1, 2, 3 } },
-            { "choice 2", new int[] { -1, 0, 1 } },
-            { "choice 3", new int[] { -4, 4, -5 } },
-        };
-        GenericTable("Option", scores, true);
+        GenericTable("Option", choiceScores, true);
+        GenericTable("Voter", voterScores, false);
     }
 
     void GenericTable(string name, Dictionary<string, int[]> indexValues, bool addMapping)
     {
+        string title = "";
         GameObject thisTableStats;
         GameObject rowStats;
-        string addSep;
         float avg;
         float sumOfSquares;
         float std;
         float min;
         float max;
 
+        // Create the table
+        thisTableStats = Instantiate(statsTable, content.transform);
+
         // Give a title
-        resultText.text += $"<size=72>Per {name} Results:</size>\n\n"; // Font size 72
+        title += $"<size=50>Per {name} Results:</size>\n"; // Font size 72
 
         if (addMapping)
         {
             // Maps the strings to an index for the table as full strings are too big
             List<string> keys = new List<string>(indexValues.Keys);
+            title += "<size=30>";
             for (int i = 0; i < keys.Count; i++)
             {
-                addSep = i == keys.Count - 1 ? "" : ", "; // Add ", " if another mapping after
-                resultText.text += $"<size=50>{i + 1}: {keys[i]}{addSep}</size>";
+                title += $"{i + 1}: {keys[i]}, ";
             }
+            title.TrimEnd(' ', ',');
+            title += "</size>\n";
         }
-
-        // Create the table
-        thisTableStats = Instantiate(statsTable, content.transform);
+        thisTableStats.GetComponent<Table>().SetTitle(title);
 
         int c = 1;
         foreach (var entry in indexValues)
