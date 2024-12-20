@@ -24,6 +24,7 @@ public class ResultScore : MonoBehaviour
     {
         GameObject choiceStats;
         GameObject rowStats;
+        string addSep;
         float avg;
         float sumOfSquares;
         float std;
@@ -34,9 +35,9 @@ public class ResultScore : MonoBehaviour
         resultText.text += "<size=72>Per Option Results:</size>\n\n"; // Font size 72
         for (int i = 0; i < Data.choices.Count; i++)
         {
-            resultText.text += $"<size=50>{i}: {Data.choices[i]}, </size>";
+            addSep = i == Data.choices.Count - 1 ? "" : ", "; // Add ", " if another choice after
+            resultText.text += $"<size=50>{i+1}: {Data.choices[i]}{addSep}</size>";
         }
-        resultText.text = resultText.text.TrimEnd(',', ' ');
 
         // Create the choices table
         choiceStats = Instantiate(statsTable, content.transform);
