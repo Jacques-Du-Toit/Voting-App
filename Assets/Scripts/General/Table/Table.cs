@@ -1,8 +1,15 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Table : MonoBehaviour
 {
+    [SerializeField] TMP_Text titleText;
+    public void SetTitle(string title)
+    {
+        titleText.text = title;
+    }
+
     float[] InitialiseArray(int size, float value)
     {
         float[] array = new float[size];
@@ -29,7 +36,7 @@ public class Table : MonoBehaviour
 
 
         // First pass to get the best and worst values
-        for (int row_i = 1; row_i < tablePos.childCount; row_i++) // skip first row as header
+        for (int row_i = 2; row_i < tablePos.childCount; row_i++) // skip first rows as title and header
         {
             row = tablePos.GetChild(row_i);
             for (int col_i = 1; col_i < row.childCount; col_i++) // skip first col as index
@@ -48,7 +55,7 @@ public class Table : MonoBehaviour
         }
 
         // Second pass to change colors of the best and worst values
-        for (int row_i = 1; row_i < tablePos.childCount; row_i++)
+        for (int row_i = 2; row_i < tablePos.childCount; row_i++)
         {
             row = tablePos.GetChild(row_i);
             for (int col_i = 1; col_i < row.childCount; col_i++)
