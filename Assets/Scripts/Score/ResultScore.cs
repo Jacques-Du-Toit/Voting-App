@@ -17,12 +17,12 @@ public class ResultScore : MonoBehaviour
             { "choice 2", new int[] { -1, 0, 1 } },
             { "choice 3", new int[] { -4, 4, -5 } },
         };
-        PerChoiceResults(scores);
+        GenericTable("Option", scores, true);
     }
 
-    void PerChoiceResults(Dictionary<string, int[]> scores)
+    void GenericTable(string name, Dictionary<string, int[]> indexValues, bool addMapping)
     {
-        GameObject choiceStats;
+        GameObject thisTableStats;
         GameObject rowStats;
         string addSep;
         float avg;
@@ -31,22 +31,28 @@ public class ResultScore : MonoBehaviour
         float min;
         float max;
 
-        // Give a title and mapping
-        resultText.text += "<size=72>Per Option Results:</size>\n\n"; // Font size 72
-        for (int i = 0; i < Data.choices.Count; i++)
+        // Give a title
+        resultText.text += $"<size=72>Per {name} Results:</size>\n\n"; // Font size 72
+
+        if (addMapping)
         {
-            addSep = i == Data.choices.Count - 1 ? "" : ", "; // Add ", " if another choice after
-            resultText.text += $"<size=50>{i+1}: {Data.choices[i]}{addSep}</size>";
+            // Maps the strings to an index for the table as full strings are too big
+            List<string> keys = new List<string>(indexValues.Keys);
+            for (int i = 0; i < keys.Count; i++)
+            {
+                addSep = i == keys.Count - 1 ? "" : ", "; // Add ", " if another mapping after
+                resultText.text += $"<size=50>{i + 1}: {keys[i]}{addSep}</size>";
+            }
         }
 
-        // Create the choices table
-        choiceStats = Instantiate(statsTable, content.transform);
+        // Create the table
+        thisTableStats = Instantiate(statsTable, content.transform);
 
         int c = 1;
-        foreach (var entry in scores)
+        foreach (var entry in indexValues)
         {
             // Add a new row to the table
-            rowStats = Instantiate(statsRow, choiceStats.transform);
+            rowStats = Instantiate(statsRow, thisTableStats.transform);
 
             // Calculate stats
             avg = Mathf.Round((float)entry.Value.Average() * 100f) / 100f;
@@ -59,6 +65,6 @@ public class ResultScore : MonoBehaviour
             rowStats.GetComponent<Row>().AddValues(c, avg, std, min, max);
             c++;
         }
-        choiceStats.GetComponent<Table>().ColorTable();
+        thisTableStats.GetComponent<Table>().ColorTable();
     }
 }
