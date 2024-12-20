@@ -10,7 +10,7 @@ public class ScoreDifferences : MonoBehaviour
 
     int ArrayDifferences(int[] array1, int[] array2)
     {
-        return array1.Zip(array2, (a, b) => (a - b)).Sum();
+        return array1.Zip(array2, (a, b) => Mathf.Abs(a - b)).Sum();
     }
 
     public void VoterSimilarity(Dictionary<string, int[]> voterScores)
