@@ -185,9 +185,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0fd25538124111f469fdb2537c495802, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  content: {fileID: 0}
-  statsTable: {fileID: 0}
-  statsRow: {fileID: 0}
+  content: {fileID: 3125398683195631730}
+  statsTable: {fileID: 4844853382808201531, guid: 43a1f614bcc8b574da954745c4e83b68, type: 3}
+  statsRow: {fileID: 6394396561818544535, guid: 442045542e4a6874d908dbe7c2cdc64d, type: 3}
+  scoreDifferences: {fileID: 4805694029777439962, guid: f70a0357136392a4cb177df4d5776406, type: 3}
 --- !u!1001 &5774065220044837999
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -238,7 +239,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7897959584927962301, guid: 88063916193c3044181832b63d965f49, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 531.5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7897959584927962301, guid: 88063916193c3044181832b63d965f49, type: 3}
       propertyPath: m_LocalPosition.y
@@ -266,7 +267,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7897959584927962301, guid: 88063916193c3044181832b63d965f49, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 531.5
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7897959584927962301, guid: 88063916193c3044181832b63d965f49, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -415,7 +416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5576542719542696462, guid: b5cea6901a07bac4ab1ccff2e1df3244, type: 3}
       propertyPath: m_ChildForceExpandWidth
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6509096559843229629, guid: b5cea6901a07bac4ab1ccff2e1df3244, type: 3}
       propertyPath: m_Name
@@ -436,6 +437,11 @@ PrefabInstance:
 --- !u!224 &2046475858978901018 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8159261392078390383, guid: b5cea6901a07bac4ab1ccff2e1df3244, type: 3}
+  m_PrefabInstance: {fileID: 7880472458778495093}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3125398683195631730 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5044781972680122375, guid: b5cea6901a07bac4ab1ccff2e1df3244, type: 3}
   m_PrefabInstance: {fileID: 7880472458778495093}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &7816579623445283761 stripped
