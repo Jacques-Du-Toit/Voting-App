@@ -39,13 +39,21 @@ public class CondorcetSystem : MonoBehaviour
 
     List<List<string>> CreateRounds()
     {
+        List<List<string>> tempRounds = new List<List<string>>();
         // Creates all unique 1v1 rounds between different choices
         for (int i = 0; i < choices.Count - 1; i++)
         {
             for (int j = i + 1; j < choices.Count; j++)
             {
-                rounds.Add(new List<string> { choices[i], choices[j] });
+                tempRounds.Add(new List<string> { choices[i], choices[j] });
             }
+        }
+        // Randomise rounds so that we don't get the same choice compared consecutively always
+        while (tempRounds.Count > 0)
+        {
+            int comparisonIndex = Random.Range(0, tempRounds.Count);
+            rounds.Add(tempRounds[comparisonIndex]);
+            tempRounds.RemoveAt(comparisonIndex);
         }
         return rounds;
     }
