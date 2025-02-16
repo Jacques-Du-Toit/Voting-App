@@ -77,7 +77,6 @@ public class UI : MonoBehaviour, IInputReceiver
 
     public void LoadData()
     {
-        HandleVoterInput(PlayerPrefs.GetInt("Voters").ToString());
         choices = StringToList(PlayerPrefs.GetString("Choices"));
 
         foreach (string choice in choices)
