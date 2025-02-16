@@ -4,6 +4,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class UI : MonoBehaviour, IInputReceiver
 {
@@ -23,6 +24,8 @@ public class UI : MonoBehaviour, IInputReceiver
 
     private string ListToString(List<string> list)
     {
+        // Player prefs can't store List's so we enocode the choices as a string
+
         // Efficiently concatenates strings using StringBuilder
         StringBuilder sb = new StringBuilder();
 
@@ -77,7 +80,6 @@ public class UI : MonoBehaviour, IInputReceiver
 
     public void LoadData()
     {
-        HandleVoterInput(PlayerPrefs.GetInt("Voters").ToString());
         choices = StringToList(PlayerPrefs.GetString("Choices"));
 
         foreach (string choice in choices)
@@ -135,9 +137,33 @@ public class UI : MonoBehaviour, IInputReceiver
         thisChoiceButton.GetComponent<ChoiceButton>().AddText(choiceInput);
     }
 
+    private string StandardiseText(string text)
+    {
+        return text.ToLower().Replace(" ", "").Replace("-", "");
+    }
+
+    private bool IsValidChoice(string choiceInput, List<string> choices)
+    {
+        // Checks that the choice is valid/has not been entered before
+
+        if (choiceInput == "")
+        {
+            return false;
+        }
+
+        foreach (string choice in choices) {
+            if (StandardiseText(choiceInput) == StandardiseText(choice))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     private void HandleChoicesInput(string choiceInput)
     {
-        if (choiceInput == "" || choices.Contains(choiceInput))
+        if (!IsValidChoice(choiceInput, choices))
         {
             return;
         }
