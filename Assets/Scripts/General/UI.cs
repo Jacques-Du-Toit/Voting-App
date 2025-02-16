@@ -4,6 +4,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class UI : MonoBehaviour, IInputReceiver
 {
@@ -20,9 +21,13 @@ public class UI : MonoBehaviour, IInputReceiver
 
     [SerializeField] GameObject choiceButtonsLayout;
     [SerializeField] GameObject generalChoiceButton;
+    [SerializeField] TMP_Text choiceVisibilityText;
+    [SerializeField] TMP_Text numChoicesText;
 
     private string ListToString(List<string> list)
     {
+        // Player prefs can't store List's so we enocode the choices as a string
+
         // Efficiently concatenates strings using StringBuilder
         StringBuilder sb = new StringBuilder();
 
@@ -78,11 +83,11 @@ public class UI : MonoBehaviour, IInputReceiver
     public void LoadData()
     {
         choices = StringToList(PlayerPrefs.GetString("Choices"));
-
         foreach (string choice in choices)
         {
             CreateChoiceButton(choice);
         }
+        UpdateNumberChoicesText();
     }
 
     private void Start()
@@ -128,15 +133,49 @@ public class UI : MonoBehaviour, IInputReceiver
         SwitchInput("choices");
     }
 
+    public void ToggleChoicesVisibility()
+    {
+        // Switches whether the choices are shown or not
+        bool areChoicesVisible = choiceButtonsLayout.gameObject.activeSelf;
+        choiceButtonsLayout.gameObject.SetActive(!areChoicesVisible);
+        choiceVisibilityText.text = areChoicesVisible ? "Show" : "Hide";
+    }
+
     private void CreateChoiceButton(string choiceInput)
     {
         GameObject thisChoiceButton = Instantiate(generalChoiceButton, choiceButtonsLayout.transform);
         thisChoiceButton.GetComponent<ChoiceButton>().AddText(choiceInput);
     }
 
+    private string StandardiseText(string text)
+    {
+        return text.ToLower().Replace(" ", "").Replace("-", "");
+    }
+
+    private bool IsValidChoice(string choiceInput, List<string> choices)
+    {
+        // Checks that the choice is valid/has not been entered before
+        if (choiceInput == "")
+        {
+            return false;
+        }
+        foreach (string choice in choices) {
+            if (StandardiseText(choiceInput) == StandardiseText(choice))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void UpdateNumberChoicesText()
+    {
+        numChoicesText.text = $"{choices.Count}";
+    }
+
     private void HandleChoicesInput(string choiceInput)
     {
-        if (choiceInput == "" || choices.Contains(choiceInput))
+        if (!IsValidChoice(choiceInput, choices))
         {
             return;
         }
@@ -144,12 +183,15 @@ public class UI : MonoBehaviour, IInputReceiver
         choices.Add(choiceInput);
         // Add the choice to the layout so the user can see and remove it
         CreateChoiceButton(choiceInput);
+        // Update the number showing the number of choices so far
+        UpdateNumberChoicesText();
         SaveData();
     }
 
     public void RemoveChoice(string choice)
     {
         choices.Remove(choice);
+        UpdateNumberChoicesText();
         SaveData();
     }
 
