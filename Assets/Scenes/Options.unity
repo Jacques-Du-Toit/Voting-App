@@ -468,6 +468,10 @@ PrefabInstance:
       propertyPath: generalChoiceButton
       value: 
       objectReference: {fileID: 4712966365393675460, guid: c67d0c5eba2de9f46bee03b6f91da073, type: 3}
+    - target: {fileID: 7568536600069434766, guid: 6363e041cbe521d4d85a2c833df126ce, type: 3}
+      propertyPath: choiceVisibilityText
+      value: 
+      objectReference: {fileID: 328226078}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -530,7 +534,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Hide Options
+  m_text: Hide
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
