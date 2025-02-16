@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.Events;
 using System.Collections;
+using System.Linq;
 
 public class CondorcetSystem : MonoBehaviour
 {
@@ -86,9 +87,17 @@ public class CondorcetSystem : MonoBehaviour
 
     void Results()
     {
-        foreach (var entry in votes)
+        List<int> sortedVotes = new HashSet<int>(votes.Values).ToList(); // Removes duplicates
+        sortedVotes.Sort();
+
+        foreach (int numVotes in sortedVotes)
         {
-            resultsText.text += $"{entry.Key}: {entry.Value}\n\n";
+            foreach (var entry in votes)
+            {
+                if (entry.Value == numVotes) {
+                    resultsText.text = $"{entry.Key}: {entry.Value}\n\n" + resultsText.text;
+                }
+            }
         }
         results.SetActive(true);
     }
