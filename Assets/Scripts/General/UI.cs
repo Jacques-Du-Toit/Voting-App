@@ -21,6 +21,7 @@ public class UI : MonoBehaviour, IInputReceiver
 
     [SerializeField] GameObject choiceButtonsLayout;
     [SerializeField] GameObject generalChoiceButton;
+    [SerializeField] TMP_Text numChoicesText;
 
     private string ListToString(List<string> list)
     {
@@ -81,11 +82,11 @@ public class UI : MonoBehaviour, IInputReceiver
     public void LoadData()
     {
         choices = StringToList(PlayerPrefs.GetString("Choices"));
-
         foreach (string choice in choices)
         {
             CreateChoiceButton(choice);
         }
+        UpdateNumberChoicesText();
     }
 
     private void Start()
@@ -131,6 +132,13 @@ public class UI : MonoBehaviour, IInputReceiver
         SwitchInput("choices");
     }
 
+    private void ToggleChoicesVisibility()
+    {
+        // Switches whether the choices are shown or not
+        bool choicesActive = choiceButtonsLayout.gameObject.activeSelf;
+        choiceButtonsLayout.gameObject.SetActive(!choicesActive);
+    }
+
     private void CreateChoiceButton(string choiceInput)
     {
         GameObject thisChoiceButton = Instantiate(generalChoiceButton, choiceButtonsLayout.transform);
@@ -145,20 +153,22 @@ public class UI : MonoBehaviour, IInputReceiver
     private bool IsValidChoice(string choiceInput, List<string> choices)
     {
         // Checks that the choice is valid/has not been entered before
-
         if (choiceInput == "")
         {
             return false;
         }
-
         foreach (string choice in choices) {
             if (StandardiseText(choiceInput) == StandardiseText(choice))
             {
                 return false;
             }
         }
-
         return true;
+    }
+
+    private void UpdateNumberChoicesText()
+    {
+        numChoicesText.text = $"{choices.Count}";
     }
 
     private void HandleChoicesInput(string choiceInput)
@@ -171,12 +181,15 @@ public class UI : MonoBehaviour, IInputReceiver
         choices.Add(choiceInput);
         // Add the choice to the layout so the user can see and remove it
         CreateChoiceButton(choiceInput);
+        // Update the number showing the number of choices so far
+        UpdateNumberChoicesText();
         SaveData();
     }
 
     public void RemoveChoice(string choice)
     {
         choices.Remove(choice);
+        UpdateNumberChoicesText();
         SaveData();
     }
 
