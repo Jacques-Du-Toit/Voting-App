@@ -1030,7 +1030,7 @@ GameObject:
   - component: {fileID: 780477074}
   - component: {fileID: 780477073}
   m_Layer: 5
-  m_Name: Show Choices Button
+  m_Name: Choice Visibility Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1099,7 +1099,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 780477074}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 143820453}
+        m_TargetAssemblyTypeName: UI, Assembly-CSharp
+        m_MethodName: ToggleChoicesVisibility
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &780477074
 MonoBehaviour:
   m_ObjectHideFlags: 0

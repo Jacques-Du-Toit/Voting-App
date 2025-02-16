@@ -21,6 +21,7 @@ public class UI : MonoBehaviour, IInputReceiver
 
     [SerializeField] GameObject choiceButtonsLayout;
     [SerializeField] GameObject generalChoiceButton;
+    [SerializeField] TMP_Text choiceVisibilityText;
     [SerializeField] TMP_Text numChoicesText;
 
     private string ListToString(List<string> list)
@@ -132,11 +133,12 @@ public class UI : MonoBehaviour, IInputReceiver
         SwitchInput("choices");
     }
 
-    private void ToggleChoicesVisibility()
+    public void ToggleChoicesVisibility()
     {
         // Switches whether the choices are shown or not
-        bool choicesActive = choiceButtonsLayout.gameObject.activeSelf;
-        choiceButtonsLayout.gameObject.SetActive(!choicesActive);
+        bool areChoicesVisible = choiceButtonsLayout.gameObject.activeSelf;
+        choiceButtonsLayout.gameObject.SetActive(!areChoicesVisible);
+        choiceVisibilityText.text = areChoicesVisible ? "Show" : "Hide";
     }
 
     private void CreateChoiceButton(string choiceInput)
