@@ -1,8 +1,8 @@
 using NUnit.Framework;
-using UnityEngine;
 using System.Collections.Generic;
 
-public class TestLogic : MonoBehaviour
+[TestFixture]
+public class TestLogic
 {
     private List<string> AllocateChoices(List<List<string>> voterChoiceRankings)
     {
@@ -47,6 +47,7 @@ public class TestLogic : MonoBehaviour
         return new List<string> { "2", "3", "1" };
     }
 
+    [Test]
     public void TestAllocationLogic()
     {
         List<List<string>> voterChoices = new List<List<string>>
@@ -56,7 +57,7 @@ public class TestLogic : MonoBehaviour
         };
         
         List<string> choiceAllocations = AllocateChoices(voterChoices);
-        Debug.Assert(choiceAllocations == new List<string> { "2", "3" });
+        CollectionAssert.AreEqual(choiceAllocations, new List<string> { "2", "3" });
     }
 }
 
