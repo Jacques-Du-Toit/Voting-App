@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.UIElements;
 
 public class UI : MonoBehaviour, IInputReceiver
 {
