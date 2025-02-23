@@ -1,9 +1,6 @@
-using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using TMPro;
-using UnityEngine.Events;
-using System.Collections;
 using System.Linq;
 
 public class CondorcetSystem : MonoBehaviour
