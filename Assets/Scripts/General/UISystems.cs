@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -50,7 +49,7 @@ public class UISystems : MonoBehaviour
         // Changes the current system to voter i
 
         // Update Title
-        title.text = "Rank Choices -5 to 5"; // CHANGE THIS TO INHERIT FROM VOTING SYSTEM
+        title.text = systems[i].GetComponent<IVotingSystem>().Title;
 
         // Update the voter text
         whichVoter.text = $"Voter {i + 1}";
