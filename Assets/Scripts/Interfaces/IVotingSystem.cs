@@ -13,5 +13,5 @@ public interface IVotingSystem
 
     string Name { get; }
     string Title { get; }
-    Dictionary<string, int[]> ChoiceValues {  get; }
+    Dictionary<string, int> ChoiceValues {  get; }
 }

@@ -70,22 +70,29 @@ public class UISystems : MonoBehaviour
         nextText.text = (i == voters - 1) ? "Results" : $"Voter {i + 2}";
     }
 
-    Dictionary<string, int[]> CountChoiceScores()
+    List<string> GetSystemNames()
     {
-        // THIS IS SPECIFIC TO THE SCORING SYSTEM - SHOULD INHERIT
-        Dictionary<string, int[]> choiceScores = new Dictionary<string, int[]>();
-        Dictionary<string, int> systemScores = new Dictionary<string, int>();
-
-        return choiceScores;
+        // Returns the Name of each system used
+        // (in future want to be able to use different systems per voter)
+        List<string> systemNames = new List<string>();
+        foreach (GameObject system in systems)
+        {
+            systemNames.Add(system.GetComponent<IVotingSystem>().Name);
+        }
+        return systemNames;
     }
 
-    Dictionary<string, int[]> CountVoterScores()
+    List<Dictionary<string, int>> GetVoterVotes()
     {
-        // THIS IS SPECIFIC TO THE SCORING SYSTEM - SHOULD INHERIT
-        Dictionary<string, int[]> voterScores = new Dictionary<string, int[]>();
-        Dictionary<string, int> systemScores = new Dictionary<string, int>();
+        // Returns the votes of each voter in order as a list of dictionaries
+        // i.e. { { "choice1": 1, "choice2": .. }, { "choice1": -3, "choice2": .. } }
+        List<Dictionary<string, int>> voterVotes = new List<Dictionary<string, int>>();
 
-        return voterScores;
+        foreach (GameObject system in systems)
+        {
+            voterVotes.Add(system.GetComponent<IVotingSystem>().ChoiceValues);
+        }
+        return voterVotes;
     }
 
     public void ChangeSystem(int direction)
@@ -108,7 +115,9 @@ public class UISystems : MonoBehaviour
             whichVoter.text = "";
             nextText.text = "Options";
             title.text = "Results";
-            results.GetComponent<ResultScore>().RunResults(CountChoiceScores(), CountVoterScores());
+            results.GetComponent<ResultScore>().RunResults(
+                GetSystemNames(), GetVoterVotes()
+                );
             results.SetActive(true);
         }
         else
