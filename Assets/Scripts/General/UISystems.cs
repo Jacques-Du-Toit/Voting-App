@@ -46,7 +46,16 @@ public class UISystems : MonoBehaviour
 
     void SetCurrentSystem(int i)
     {
-        // Changes the current system to voter i
+        for (int j = 0; j < voters; j++)
+        {
+            systems[j].SetActive(i == j);
+        }
+
+        if (i >= voters)
+        {
+            // We are past all voters
+            return;
+        }
 
         // Update Title
         title.text = systems[i].GetComponent<IVotingSystem>().Title;
@@ -59,11 +68,6 @@ public class UISystems : MonoBehaviour
 
         // Update "next" button text
         nextText.text = (i == voters - 1) ? "Results" : $"Voter {i + 2}";
-
-        for (int j = 0; j < voters; j++)
-        {
-            systems[j].SetActive(i == j);
-        }
     }
 
     Dictionary<string, int[]> CountChoiceScores()

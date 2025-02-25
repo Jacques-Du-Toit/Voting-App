@@ -3,20 +3,25 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
-public class ScoreSystem : MonoBehaviour
+public class ScoreSystem : MonoBehaviour, IVotingSystem
 {
+    public string Name { get; private set; }
+    public string Title { get; private set; }
+    public Dictionary<string, int[]> ChoiceValues { get; private set; }
+
     [SerializeField] GameObject content;
     [SerializeField] GameObject choiceParent;
 
     Dictionary<string, ChoiceParent> choiceScripts;
     public Dictionary<string, int> choiceScores = new Dictionary<string, int>();
 
-    int voters;
     List<string> choices;
 
-    private void Start()
+    private void Awake()
     {
-        voters = Data.voters;
+        Name = "Score";
+        Title = "Rank Choices -5 to 5";
+
         choices = Data.choices;
 
         InitialiseChoices();
