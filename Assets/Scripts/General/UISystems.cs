@@ -70,32 +70,9 @@ public class UISystems : MonoBehaviour
     Dictionary<string, int[]> CountChoiceScores()
     {
         // THIS IS SPECIFIC TO THE SCORING SYSTEM - SHOULD INHERIT
-
-        // 
         Dictionary<string, int[]> choiceScores = new Dictionary<string, int[]>();
         Dictionary<string, int> systemScores = new Dictionary<string, int>();
-        int score;
 
-        foreach (string choice in choices)
-        {
-            choiceScores[choice] = new int[voters];
-        }
-
-        for (int i = 0; i < voters; i++)
-        {
-            systemScores = systems[i].GetComponent<votingSystem>().choiceScores;
-            foreach (var entry in systemScores)
-            {
-                score = entry.Value;
-                // Check for dummy score
-                if (score == 42)
-                {
-                    score = 0;
-                }
-                choiceScores[entry.Key][i] = entry.Value;
-            }
-
-        }
         return choiceScores;
     }
 
@@ -105,16 +82,6 @@ public class UISystems : MonoBehaviour
         Dictionary<string, int[]> voterScores = new Dictionary<string, int[]>();
         Dictionary<string, int> systemScores = new Dictionary<string, int>();
 
-        for (int v = 1; v <= voters; v++)
-        {
-            voterScores[v.ToString()] = new int[choices.Count];
-        }
-
-        for (int i = 0; i < voters; i++)
-        {
-            systemScores = systems[i].GetComponent<votingSystem>().choiceScores;
-            voterScores[(i + 1).ToString()] = systemScores.Values.ToArray();
-        }
         return voterScores;
     }
 
