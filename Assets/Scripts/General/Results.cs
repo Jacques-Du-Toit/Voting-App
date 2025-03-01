@@ -86,6 +86,6 @@ public class Results : MonoBehaviour
     {
         GameObject thisScoreDiff;
         thisScoreDiff = Instantiate(scoreDifferences, content.transform);
-        thisScoreDiff.GetComponent<ScoreDifferences>().VoterSimilarity(voterScores);
+        thisScoreDiff.GetComponent<VoterDifferences>().VoterSimilarity(voterScores);
     }
 }
