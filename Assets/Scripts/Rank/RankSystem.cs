@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 public class RankSystem : MonoBehaviour, IVoteSystem
 {
@@ -90,8 +91,12 @@ public class RankSystem : MonoBehaviour, IVoteSystem
             (index == (choices.Count - 1) && direction == -1)
             )
         { return; }
-        ChoiceVotes[choice] += direction;
-        parentPos.GetChild(index);
+
+        ChoiceVotes[choice] += direction; // Add to votes
+
+        string otherChoice = parentPos.GetChild(index - direction).GetComponent<RankChoice>().choiceText.text;
+        ChoiceVotes[otherChoice] -= direction;
+
         thisPos.SetSiblingIndex(index - direction); // Going up decreases index
     }
 }
