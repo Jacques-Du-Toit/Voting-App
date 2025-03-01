@@ -145,7 +145,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8285424460857009853}
-  - component: {fileID: 295424664582402839}
+  - component: {fileID: 3770049428099450861}
   m_Layer: 5
   m_Name: Rank Choice
   m_TagString: Untagged
@@ -173,7 +173,7 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &295424664582402839
+--- !u!114 &3770049428099450861
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -182,12 +182,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 472486496979336432}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 732f29b524fc0204d8f75b219e2678ff, type: 3}
+  m_Script: {fileID: 11500000, guid: 3a415d323b602134db5579285b16e8d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   choiceText: {fileID: 1478358365835013133}
-  scoreInput: {fileID: 0}
-  score: 0
+  rank: 0
 --- !u!1 &2759252609632372543
 GameObject:
   m_ObjectHideFlags: 0
