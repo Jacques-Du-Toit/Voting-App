@@ -687,7 +687,7 @@ MonoBehaviour:
   prevText: {fileID: 946547852}
   nextText: {fileID: 1456999662}
   results: {fileID: 999270661}
-  voteSystem: {fileID: 2114756331356186278, guid: d91b332992eb2e340bc877af470a6ba3, type: 3}
+  voteSystem: {fileID: 2114756331356186278, guid: 55c6d9930bc645d4c997c0c2fff48cdc, type: 3}
 --- !u!4 &1022594890
 Transform:
   m_ObjectHideFlags: 0
