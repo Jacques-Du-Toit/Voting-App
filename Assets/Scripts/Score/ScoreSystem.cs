@@ -11,7 +11,7 @@ public class ScoreSystem : MonoBehaviour, IVoteSystem
     [SerializeField] GameObject choiceParent;
 
     Dictionary<string, ChoiceParent> choiceScripts;
-    public Dictionary<string, int> choiceScores = new Dictionary<string, int>();
+    public Dictionary<string, int> ChoiceVotes { get; private set; }
 
     int voters;
     List<string> choices;
@@ -19,6 +19,7 @@ public class ScoreSystem : MonoBehaviour, IVoteSystem
     private void Awake()
     {
         Title = "Score Options -5 to 5";
+        ChoiceVotes = new Dictionary<string, int>();
     }
 
     private void Start()
@@ -98,7 +99,7 @@ public class ScoreSystem : MonoBehaviour, IVoteSystem
         // Update the score in that object
         choiceScripts[choice].score = score;
         // Update the scores dictionary used for results
-        choiceScores[choice] = score;
+        ChoiceVotes[choice] = score;
 
         // Update the color
         ChangeColor(scoreField, score);

@@ -78,7 +78,7 @@ public class UISystems : MonoBehaviour
 
         for (int i = 0;i < voters; i++)
         {
-            systemVotes = systems[i].GetComponent<ScoreSystem>().choiceScores;
+            systemVotes = systems[i].GetComponent<IVoteSystem>().ChoiceVotes;
             foreach(var entry in systemVotes)
             {
                 vote = entry.Value;
@@ -106,7 +106,7 @@ public class UISystems : MonoBehaviour
 
         for (int i = 0; i < voters; i++)
         {
-            systemVotes = systems[i].GetComponent<ScoreSystem>().choiceScores;
+            systemVotes = systems[i].GetComponent<IVoteSystem>().ChoiceVotes;
             voterVotes[(i + 1).ToString()] = systemVotes.Values.ToArray();
         }
         return voterVotes;
