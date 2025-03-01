@@ -128,7 +128,9 @@ public class UISystems : MonoBehaviour
             whichVoter.text = "";
             nextText.text = "Options";
             title.text = "Results";
-            results.GetComponent<Results>().RunResults(CountChoiceVotes(), CountVoterVotes());
+            results.GetComponent<Results>().RunResults(
+                CountChoiceVotes(), CountVoterVotes(), systems[0].GetComponent<IVoteSystem>().Title
+                );
             results.SetActive(true);
         }
         else

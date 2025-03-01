@@ -9,7 +9,7 @@ public class Results : MonoBehaviour
     [SerializeField] GameObject statsRow;
     [SerializeField] GameObject scoreDifferences;
 
-    public void RunResults(Dictionary<string, int[]> choiceScores, Dictionary<string, int[]> voterScores)
+    public void RunResults(Dictionary<string, int[]> choiceScores, Dictionary<string, int[]> voterScores, string title)
     {
         /*
         choiceScores = new Dictionary<string, int[]>() {
@@ -27,7 +27,10 @@ public class Results : MonoBehaviour
         */
 
         GenericTable("Option", choiceScores, true);
-        GenericTable("Voter", voterScores, false);
+        if (title.StartsWith("Score"))
+        {
+            GenericTable("Voter", voterScores, false);
+        }
         VoterSimilarity(voterScores);
     }
 
@@ -48,8 +51,78 @@ public class Results : MonoBehaviour
         // Give a title
         title += $"<size=50>Per {name} Results:</size>\n"; // Font size 72
 
+        
+        foreach (var entry in indexValues)
+        {
+
+        }
+
         if (addMapping)
         {
+            // Give the final result (who won)
+            float bestAvg = -100.0f;
+            float bestMin = -100.0f;
+
+            Dictionary<string, float> choiceAverages = new Dictionary<string, float>();
+            Dictionary<string, float> choiceMins = new Dictionary<string, float>();
+
+            foreach (var entry in indexValues)
+            {
+                // Calculate stats
+                avg = (float)entry.Value.Average();
+                min = entry.Value.Min();
+
+                if (avg > bestAvg)
+                {
+                    bestAvg = avg;
+                }
+                if (min > bestMin) { 
+                    bestMin = min;
+                }
+
+                choiceAverages[entry.Key] = avg;
+                choiceMins[entry.Key] = min;
+            }
+
+            float avgRounded;
+            // Display highest average
+            title += $"<size=30>Best Average:\n";
+            foreach (var entry in choiceAverages)
+            {
+                if (entry.Value >= bestAvg)
+                {
+                    avgRounded = Mathf.Round((float)entry.Value * 100f) / 100f;
+                    title += $"{entry.Key}: {avgRounded}, ";
+                }
+            }
+            title = title.TrimEnd(' ', ',');
+            title += "</size>\n";
+
+            float bestAvgForMin = -100.0f;
+            // Calculate best avg for highest min
+            foreach (var entry in choiceMins)
+            {
+                if ((entry.Value >= bestMin) && (choiceAverages[entry.Key] > bestAvgForMin))
+                {
+                    bestAvgForMin = choiceAverages[entry.Key];
+                }
+            }
+
+            float minRounded;
+            // Display highest average for highest min
+            title += $"<size=30>Best Min with Best Avg:\n";
+            foreach (var entry in choiceMins)
+            {
+                if ((entry.Value >= bestMin) && (choiceAverages[entry.Key] >= bestAvgForMin))
+                {
+                    avgRounded = Mathf.Round((float)entry.Value * 100f) / 100f;
+                    minRounded = Mathf.Round((float)bestAvgForMin * 100f) / 100f;
+                    title += $"{entry.Key}: [{avgRounded}, {minRounded}], ";
+                }
+            }
+            title = title.TrimEnd(' ', ',');
+            title += "</size>\n";
+
             // Maps the strings to an index for the table as full strings are too big
             List<string> keys = new List<string>(indexValues.Keys);
             title += "<size=30>";
