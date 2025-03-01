@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
-public class ScoreSystem : MonoBehaviour
+public class ScoreSystem : MonoBehaviour, IVoteSystem
 {
+    public string Title { get; private set; }
+
     [SerializeField] GameObject content;
     [SerializeField] GameObject choiceParent;
 
@@ -13,6 +15,11 @@ public class ScoreSystem : MonoBehaviour
 
     int voters;
     List<string> choices;
+
+    private void Awake()
+    {
+        Title = "Score Options -5 to 5";
+    }
 
     private void Start()
     {
