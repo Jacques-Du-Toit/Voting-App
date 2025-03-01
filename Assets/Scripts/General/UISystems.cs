@@ -13,7 +13,7 @@ public class UISystems : MonoBehaviour
     [SerializeField] TMP_Text nextText;
     [SerializeField] GameObject results;
 
-    [SerializeField] GameObject scoreSystem;
+    [SerializeField] GameObject voteSystem;
     GameObject[] systems;
 
     int voters;
@@ -35,7 +35,7 @@ public class UISystems : MonoBehaviour
     {
         for (int i = 0; i < voters; i++)
         {
-            systems[i] = Instantiate(scoreSystem, canvas.transform);
+            systems[i] = Instantiate(voteSystem, canvas.transform);
         }
     }
 
@@ -65,51 +65,51 @@ public class UISystems : MonoBehaviour
         nextText.text = (i == voters - 1) ? "Results" : $"Voter {i + 2}";
     }
 
-    Dictionary<string, int[]> CountChoiceScores()
+    Dictionary<string, int[]> CountChoiceVotes()
     {
-        Dictionary<string, int[]> choiceScores = new Dictionary<string, int[]>();
-        Dictionary<string, int> systemScores = new Dictionary<string, int>();
-        int score;
+        Dictionary<string, int[]> choiceVotes = new Dictionary<string, int[]>();
+        Dictionary<string, int> systemVotes = new Dictionary<string, int>();
+        int vote;
 
         foreach (string choice in choices)
         {
-            choiceScores[choice] = new int[voters];
+            choiceVotes[choice] = new int[voters];
         }
 
         for (int i = 0;i < voters; i++)
         {
-            systemScores = systems[i].GetComponent<ScoreSystem>().choiceScores;
-            foreach(var entry in systemScores)
+            systemVotes = systems[i].GetComponent<ScoreSystem>().choiceScores;
+            foreach(var entry in systemVotes)
             {
-                score = entry.Value;
-                // Check for dummy score
-                if (score == 42)
+                vote = entry.Value;
+                // Check for dummy vote
+                if (vote == 42)
                 {
-                    score = 0;
+                    vote = 0;
                 }
-                choiceScores[entry.Key][i] = entry.Value;
+                choiceVotes[entry.Key][i] = entry.Value;
             }
 
         }
-        return choiceScores;
+        return choiceVotes;
     }
 
-    Dictionary<string, int[]> CountVoterScores()
+    Dictionary<string, int[]> CountVoterVotes()
     {
-        Dictionary<string, int[]> voterScores = new Dictionary<string, int[]>();
-        Dictionary<string, int> systemScores = new Dictionary<string, int>();
+        Dictionary<string, int[]> voterVotes = new Dictionary<string, int[]>();
+        Dictionary<string, int> systemVotes = new Dictionary<string, int>();
 
         for(int v = 1; v <= voters; v++)
         {
-            voterScores[v.ToString()] = new int[choices.Count];
+            voterVotes[v.ToString()] = new int[choices.Count];
         }
 
         for (int i = 0; i < voters; i++)
         {
-            systemScores = systems[i].GetComponent<ScoreSystem>().choiceScores;
-            voterScores[(i + 1).ToString()] = systemScores.Values.ToArray();
+            systemVotes = systems[i].GetComponent<ScoreSystem>().choiceScores;
+            voterVotes[(i + 1).ToString()] = systemVotes.Values.ToArray();
         }
-        return voterScores;
+        return voterVotes;
     }
 
     public void ChangeSystem(int direction)
@@ -128,7 +128,7 @@ public class UISystems : MonoBehaviour
             whichVoter.text = "";
             nextText.text = "Options";
             title.text = "Results";
-            results.GetComponent<Results>().RunResults(CountChoiceScores(), CountVoterScores());
+            results.GetComponent<Results>().RunResults(CountChoiceVotes(), CountVoterVotes());
             results.SetActive(true);
         }
         else
