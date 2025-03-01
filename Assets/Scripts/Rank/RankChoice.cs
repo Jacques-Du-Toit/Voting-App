@@ -4,10 +4,15 @@ using UnityEngine;
 public class RankChoice : MonoBehaviour
 {
     public TMP_Text choiceText;
-    public int rank;
+    RankSystem rankSystem;
 
     private void Start()
     {
-        rank = 0;
+        rankSystem = GetComponentInParent<RankSystem>();
+    }
+
+    public void MoveChoice(int direction)
+    {
+        rankSystem.MoveChoice(choiceText.text, direction);
     }
 }

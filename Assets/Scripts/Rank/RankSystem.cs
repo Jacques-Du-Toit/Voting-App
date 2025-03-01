@@ -1,7 +1,5 @@
 using UnityEngine;
 using System.Collections.Generic;
-using TMPro;
-using UnityEngine.UI;
 
 public class RankSystem : MonoBehaviour, IVoteSystem
 {
@@ -58,34 +56,42 @@ public class RankSystem : MonoBehaviour, IVoteSystem
             // Store the instantiated object in the dictionary
             choiceScripts[choice] = choiceScript;
         }
-
-        foreach (var entry in ChoiceVotes)
-        {
-            print($"{entry.Key}: {entry.Value}");
-        }
     }
 
-    void MoveChoice(string choice, int direction)
+    public void MoveChoice(string choice, int direction)
     {
+        // Moves a choice up or down depending on direction
 
-    }
-
-    void CalculateOrder(string choice, int score)
-    {
         Transform thisPos = choiceScripts[choice].gameObject.transform;
+        int index = thisPos.GetSiblingIndex();
 
-        for (int i = 0; i < parentPos.childCount; i++)
+        // NEED TO UPDATE THE ChoiceVotes AS WELL AND GET THE BUTTONS TO CALL THIS FUNCTION (probably from RankChoice script
+
+        /*
+         * Would need to update all the other choices as well if we wrap around
+        if (index == 0 && direction == 1)
         {
-            Transform childPos = parentPos.GetChild(i);
-            int childScore = childPos.GetComponent<ChoiceParent>().score;
+            thisPos.SetAsLastSibling();
+            ChoiceVotes[choice] = 0;
 
-            if (childPos == thisPos || score < childScore) { continue; }
-            else
-            {
-                thisPos.SetSiblingIndex(i - 1);
-                return;
-            }
         }
-        thisPos.SetAsLastSibling();
+        else if (index == (choices.Count-1) && direction == -1)
+        {
+            thisPos.SetAsFirstSibling();
+            ChoiceVotes[choice] = choices.Count - 1;
+        }
+        else
+        {
+            thisPos.SetSiblingIndex(index + direction);
+        }
+        */
+        if (
+            (index == 0 && direction == 1) ||
+            (index == (choices.Count - 1) && direction == -1)
+            )
+        { return; }
+        ChoiceVotes[choice] += direction;
+        parentPos.GetChild(index);
+        thisPos.SetSiblingIndex(index - direction); // Going up decreases index
     }
 }

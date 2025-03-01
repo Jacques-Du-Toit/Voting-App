@@ -111,7 +111,6 @@ public class ScoreSystem : MonoBehaviour, IVoteSystem
         scoreField.DeactivateInputField();
     }
 
-
     public void ReceiveScore(string choice, string input)
     {
         int score = int.Parse(input);
