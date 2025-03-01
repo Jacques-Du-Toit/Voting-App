@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIScore : MonoBehaviour
+public class UISystems : MonoBehaviour
 {
     [SerializeField] GameObject canvas;
     [SerializeField] TMP_Text title;

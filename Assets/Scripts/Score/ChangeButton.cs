@@ -3,11 +3,11 @@ using UnityEngine;
 public class ChangeButton : MonoBehaviour
 {
     [SerializeField] GameObject UIManager;
-    UIScore UIScript;
+    UISystems UIScript;
 
     void Start()
     {
-        UIScript = UIManager.GetComponent<UIScore>();
+        UIScript = UIManager.GetComponent<UISystems>();
     }
 
     public void ChangeSystem(int direction)
