@@ -122,7 +122,7 @@ public class UIScore : MonoBehaviour
             whichVoter.text = "";
             nextText.text = "Options";
             title.text = "Results";
-            results.GetComponent<ResultScore>().RunResults(CountChoiceScores(), CountVoterScores());
+            results.GetComponent<Results>().RunResults(CountChoiceScores(), CountVoterScores());
             results.SetActive(true);
         }
         else
