@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class UIScore : MonoBehaviour
+public class UISystems : MonoBehaviour
 {
     [SerializeField] GameObject canvas;
     [SerializeField] TMP_Text title;
@@ -13,7 +13,7 @@ public class UIScore : MonoBehaviour
     [SerializeField] TMP_Text nextText;
     [SerializeField] GameObject results;
 
-    [SerializeField] GameObject scoreSystem;
+    [SerializeField] GameObject voteSystem;
     GameObject[] systems;
 
     int voters;
@@ -35,14 +35,25 @@ public class UIScore : MonoBehaviour
     {
         for (int i = 0; i < voters; i++)
         {
-            systems[i] = Instantiate(scoreSystem, canvas.transform);
+            systems[i] = Instantiate(voteSystem, canvas.transform);
         }
     }
 
     void SetCurrentSystem(int i)
     {
+        for (int j = 0; j < voters; j++)
+        {
+            systems[j].SetActive(i == j);
+        }
+
+        if (i >= voters)
+        {
+            // We are past all voters
+            return;
+        }
+
         // Update Title
-        title.text = "Rank Choices -5 to 5";
+        title.text = systems[i].GetComponent<IVoteSystem>().Title;
 
         // Update the voter text
         whichVoter.text = $"Voter {i + 1}";
@@ -52,58 +63,53 @@ public class UIScore : MonoBehaviour
 
         // Update "next" button text
         nextText.text = (i == voters - 1) ? "Results" : $"Voter {i + 2}";
-
-        for (int j = 0; j < voters; j++)
-        {
-            systems[j].SetActive(i == j);
-        }
     }
 
-    Dictionary<string, int[]> CountChoiceScores()
+    Dictionary<string, int[]> CountChoiceVotes()
     {
-        Dictionary<string, int[]> choiceScores = new Dictionary<string, int[]>();
-        Dictionary<string, int> systemScores = new Dictionary<string, int>();
-        int score;
+        Dictionary<string, int[]> choiceVotes = new Dictionary<string, int[]>();
+        Dictionary<string, int> systemVotes = new Dictionary<string, int>();
+        int vote;
 
         foreach (string choice in choices)
         {
-            choiceScores[choice] = new int[voters];
+            choiceVotes[choice] = new int[voters];
         }
 
         for (int i = 0;i < voters; i++)
         {
-            systemScores = systems[i].GetComponent<ScoreSystem>().choiceScores;
-            foreach(var entry in systemScores)
+            systemVotes = systems[i].GetComponent<IVoteSystem>().ChoiceVotes;
+            foreach(var entry in systemVotes)
             {
-                score = entry.Value;
-                // Check for dummy score
-                if (score == 42)
+                vote = entry.Value;
+                // Check for dummy vote
+                if (vote == 42)
                 {
-                    score = 0;
+                    vote = 0;
                 }
-                choiceScores[entry.Key][i] = entry.Value;
+                choiceVotes[entry.Key][i] = entry.Value;
             }
 
         }
-        return choiceScores;
+        return choiceVotes;
     }
 
-    Dictionary<string, int[]> CountVoterScores()
+    Dictionary<string, int[]> CountVoterVotes()
     {
-        Dictionary<string, int[]> voterScores = new Dictionary<string, int[]>();
-        Dictionary<string, int> systemScores = new Dictionary<string, int>();
+        Dictionary<string, int[]> voterVotes = new Dictionary<string, int[]>();
+        Dictionary<string, int> systemVotes = new Dictionary<string, int>();
 
         for(int v = 1; v <= voters; v++)
         {
-            voterScores[v.ToString()] = new int[choices.Count];
+            voterVotes[v.ToString()] = new int[choices.Count];
         }
 
         for (int i = 0; i < voters; i++)
         {
-            systemScores = systems[i].GetComponent<ScoreSystem>().choiceScores;
-            voterScores[(i + 1).ToString()] = systemScores.Values.ToArray();
+            systemVotes = systems[i].GetComponent<IVoteSystem>().ChoiceVotes;
+            voterVotes[(i + 1).ToString()] = systemVotes.Values.ToArray();
         }
-        return voterScores;
+        return voterVotes;
     }
 
     public void ChangeSystem(int direction)
@@ -122,7 +128,7 @@ public class UIScore : MonoBehaviour
             whichVoter.text = "";
             nextText.text = "Options";
             title.text = "Results";
-            results.GetComponent<ResultScore>().RunResults(CountChoiceScores(), CountVoterScores());
+            results.GetComponent<Results>().RunResults(CountChoiceVotes(), CountVoterVotes());
             results.SetActive(true);
         }
         else

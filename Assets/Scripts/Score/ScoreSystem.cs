@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine.UI;
 
-public class ScoreSystem : MonoBehaviour
+public class ScoreSystem : MonoBehaviour, IVoteSystem
 {
+    public string Title { get; private set; }
+
     [SerializeField] GameObject content;
     [SerializeField] GameObject choiceParent;
 
     Dictionary<string, ChoiceParent> choiceScripts;
-    public Dictionary<string, int> choiceScores = new Dictionary<string, int>();
+    public Dictionary<string, int> ChoiceVotes { get; private set; }
 
     int voters;
     List<string> choices;
+
+    private void Awake()
+    {
+        Title = "Score Options -5 to 5";
+        ChoiceVotes = new Dictionary<string, int>();
+    }
 
     private void Start()
     {
@@ -91,7 +99,7 @@ public class ScoreSystem : MonoBehaviour
         // Update the score in that object
         choiceScripts[choice].score = score;
         // Update the scores dictionary used for results
-        choiceScores[choice] = score;
+        ChoiceVotes[choice] = score;
 
         // Update the color
         ChangeColor(scoreField, score);

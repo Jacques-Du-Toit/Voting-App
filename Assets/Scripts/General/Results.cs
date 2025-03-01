@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-public class ResultScore : MonoBehaviour
+public class Results : MonoBehaviour
 {
     [SerializeField] GameObject content;
     [SerializeField] GameObject statsTable;
