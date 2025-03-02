@@ -7,18 +7,18 @@ public class Results : MonoBehaviour
     [SerializeField] GameObject content;
     [SerializeField] GameObject statsTable;
     [SerializeField] GameObject statsRow;
-    [SerializeField] GameObject scoreDifferences;
+    [SerializeField] GameObject voteDifferences;
 
-    public void RunResults(Dictionary<string, int[]> choiceScores, Dictionary<string, int[]> voterScores)
+    public void RunResults(Dictionary<string, int[]> choiceVotes, Dictionary<string, int[]> voterVotes, string title)
     {
         /*
-        choiceScores = new Dictionary<string, int[]>() {
+        choiceVotes = new Dictionary<string, int[]>() {
             { "movie", new int[] { 3, 1, 3 } },
             { "show", new int[]  { -5, 4, -2 } },
             { "game", new int[]  { 5, -2, 1 } },
         };
 
-        voterScores = new Dictionary<string, int[]>()
+        voterVotes = new Dictionary<string, int[]>()
         {
             { "1", new int[] { 3, -5, 5 } },
             { "2", new int[] { 1, 4, -2 } },
@@ -26,9 +26,12 @@ public class Results : MonoBehaviour
         };
         */
 
-        GenericTable("Option", choiceScores, true);
-        GenericTable("Voter", voterScores, false);
-        VoterSimilarity(voterScores);
+        GenericTable("Option", choiceVotes, true);
+        if (title.StartsWith("Vote"))
+        {
+            GenericTable("Voter", voterVotes, false);
+        }
+        VoterSimilarity(voterVotes);
     }
 
     void GenericTable(string name, Dictionary<string, int[]> indexValues, bool addMapping)
@@ -50,6 +53,70 @@ public class Results : MonoBehaviour
 
         if (addMapping)
         {
+            // Give the final result (who won)
+            float bestAvg = -100.0f;
+            float bestMin = -100.0f;
+
+            Dictionary<string, float> choiceAverages = new Dictionary<string, float>();
+            Dictionary<string, float> choiceMins = new Dictionary<string, float>();
+
+            foreach (var entry in indexValues)
+            {
+                // Calculate stats
+                avg = (float)entry.Value.Average();
+                min = entry.Value.Min();
+
+                if (avg > bestAvg)
+                {
+                    bestAvg = avg;
+                }
+                if (min > bestMin) { 
+                    bestMin = min;
+                }
+
+                choiceAverages[entry.Key] = avg;
+                choiceMins[entry.Key] = min;
+            }
+
+            float avgRounded;
+            // Display highest average
+            title += $"<size=30>\nBest Average:\n";
+            foreach (var entry in choiceAverages)
+            {
+                if (entry.Value >= bestAvg)
+                {
+                    avgRounded = Mathf.Round((float)entry.Value * 100f) / 100f;
+                    title += $"{entry.Key}: {avgRounded}, ";
+                }
+            }
+            title = title.TrimEnd(' ', ',');
+            title += "</size>\n";
+
+            float bestAvgForMin = -100.0f;
+            // Calculate best avg for highest min
+            foreach (var entry in choiceMins)
+            {
+                if ((entry.Value >= bestMin) && (choiceAverages[entry.Key] > bestAvgForMin))
+                {
+                    bestAvgForMin = choiceAverages[entry.Key];
+                }
+            }
+
+            float minRounded;
+            // Display highest average for highest min
+            title += $"<size=30>Best Min with Best Avg:\n";
+            foreach (var entry in choiceMins)
+            {
+                if ((entry.Value >= bestMin) && (choiceAverages[entry.Key] >= bestAvgForMin))
+                {
+                    avgRounded = Mathf.Round((float)entry.Value * 100f) / 100f;
+                    minRounded = Mathf.Round((float)bestAvgForMin * 100f) / 100f;
+                    title += $"{entry.Key}: [{avgRounded}, {minRounded}], ";
+                }
+            }
+            title = title.TrimEnd(' ', ',');
+            title += "</size>\n";
+
             // Maps the strings to an index for the table as full strings are too big
             List<string> keys = new List<string>(indexValues.Keys);
             title += "<size=30>";
@@ -58,7 +125,7 @@ public class Results : MonoBehaviour
                 title += $"{i + 1}: {keys[i]}, ";
             }
             title = title.TrimEnd(' ', ',');
-            title += "</size>\n";
+            title += "\n</size>";
         }
         thisTableStats.GetComponent<Table>().SetTitle(title);
 
@@ -82,10 +149,10 @@ public class Results : MonoBehaviour
         thisTableStats.GetComponent<Table>().ColorTable();
     }
 
-    void VoterSimilarity(Dictionary<string, int[]> voterScores)
+    void VoterSimilarity(Dictionary<string, int[]> voterVotes)
     {
-        GameObject thisScoreDiff;
-        thisScoreDiff = Instantiate(scoreDifferences, content.transform);
-        thisScoreDiff.GetComponent<ScoreDifferences>().VoterSimilarity(voterScores);
+        GameObject thisVoteDiff;
+        thisVoteDiff = Instantiate(voteDifferences, content.transform);
+        thisVoteDiff.GetComponent<VoterDifferences>().VoterSimilarity(voterVotes);
     }
 }

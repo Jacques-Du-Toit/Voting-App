@@ -188,7 +188,7 @@ MonoBehaviour:
   content: {fileID: 3125398683195631730}
   statsTable: {fileID: 4844853382808201531, guid: 43a1f614bcc8b574da954745c4e83b68, type: 3}
   statsRow: {fileID: 6394396561818544535, guid: 442045542e4a6874d908dbe7c2cdc64d, type: 3}
-  scoreDifferences: {fileID: 4805694029777439962, guid: f70a0357136392a4cb177df4d5776406, type: 3}
+  voteDifferences: {fileID: 4805694029777439962, guid: f70a0357136392a4cb177df4d5776406, type: 3}
 --- !u!1001 &5774065220044837999
 PrefabInstance:
   m_ObjectHideFlags: 0

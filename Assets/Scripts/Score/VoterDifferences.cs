@@ -3,7 +3,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Linq;
 
-public class ScoreDifferences : MonoBehaviour
+public class VoterDifferences : MonoBehaviour
 {
     [SerializeField] TMP_Text similarText;
     [SerializeField] TMP_Text differentText;
@@ -13,7 +13,7 @@ public class ScoreDifferences : MonoBehaviour
         return array1.Zip(array2, (a, b) => Mathf.Abs(a - b)).Sum();
     }
 
-    public void VoterSimilarity(Dictionary<string, int[]> voterScores)
+    public void VoterSimilarity(Dictionary<string, int[]> voterVotes)
     {
         similarText.text = "Most Similar Voters:\n";
         differentText.text = "Least Similar Voters:\n";
@@ -32,7 +32,7 @@ public class ScoreDifferences : MonoBehaviour
         {
             for (int j = i + 1; j <= Data.voters; j++)
             {
-                diff = ArrayDifferences(voterScores[i.ToString()], voterScores[j.ToString()]);
+                diff = ArrayDifferences(voterVotes[i.ToString()], voterVotes[j.ToString()]);
                 if (diff < minDiff)
                 {
                     minDiff = diff;
@@ -49,7 +49,7 @@ public class ScoreDifferences : MonoBehaviour
         {
             for (int j = i + 1; j <= Data.voters; j++)
             {
-                diff = ArrayDifferences(voterScores[i.ToString()], voterScores[j.ToString()]);
+                diff = ArrayDifferences(voterVotes[i.ToString()], voterVotes[j.ToString()]);
                 if (diff == minDiff)
                 {
                     similarText.text += $"({i}, {j}), ";
