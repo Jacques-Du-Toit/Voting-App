@@ -7,18 +7,18 @@ public class Results : MonoBehaviour
     [SerializeField] GameObject content;
     [SerializeField] GameObject statsTable;
     [SerializeField] GameObject statsRow;
-    [SerializeField] GameObject scoreDifferences;
+    [SerializeField] GameObject voteDifferences;
 
-    public void RunResults(Dictionary<string, int[]> choiceScores, Dictionary<string, int[]> voterScores, string title)
+    public void RunResults(Dictionary<string, int[]> choiceVotes, Dictionary<string, int[]> voterVotes, string title)
     {
         /*
-        choiceScores = new Dictionary<string, int[]>() {
+        choiceVotes = new Dictionary<string, int[]>() {
             { "movie", new int[] { 3, 1, 3 } },
             { "show", new int[]  { -5, 4, -2 } },
             { "game", new int[]  { 5, -2, 1 } },
         };
 
-        voterScores = new Dictionary<string, int[]>()
+        voterVotes = new Dictionary<string, int[]>()
         {
             { "1", new int[] { 3, -5, 5 } },
             { "2", new int[] { 1, 4, -2 } },
@@ -26,12 +26,12 @@ public class Results : MonoBehaviour
         };
         */
 
-        GenericTable("Option", choiceScores, true);
-        if (title.StartsWith("Score"))
+        GenericTable("Option", choiceVotes, true);
+        if (title.StartsWith("Vote"))
         {
-            GenericTable("Voter", voterScores, false);
+            GenericTable("Voter", voterVotes, false);
         }
-        VoterSimilarity(voterScores);
+        VoterSimilarity(voterVotes);
     }
 
     void GenericTable(string name, Dictionary<string, int[]> indexValues, bool addMapping)
@@ -50,12 +50,6 @@ public class Results : MonoBehaviour
 
         // Give a title
         title += $"<size=50>Per {name} Results:</size>\n"; // Font size 72
-
-        
-        foreach (var entry in indexValues)
-        {
-
-        }
 
         if (addMapping)
         {
@@ -86,7 +80,7 @@ public class Results : MonoBehaviour
 
             float avgRounded;
             // Display highest average
-            title += $"<size=30>Best Average:\n";
+            title += $"<size=30>\nBest Average:\n";
             foreach (var entry in choiceAverages)
             {
                 if (entry.Value >= bestAvg)
@@ -131,7 +125,7 @@ public class Results : MonoBehaviour
                 title += $"{i + 1}: {keys[i]}, ";
             }
             title = title.TrimEnd(' ', ',');
-            title += "</size>\n";
+            title += "\n</size>";
         }
         thisTableStats.GetComponent<Table>().SetTitle(title);
 
@@ -155,10 +149,10 @@ public class Results : MonoBehaviour
         thisTableStats.GetComponent<Table>().ColorTable();
     }
 
-    void VoterSimilarity(Dictionary<string, int[]> voterScores)
+    void VoterSimilarity(Dictionary<string, int[]> voterVotes)
     {
-        GameObject thisScoreDiff;
-        thisScoreDiff = Instantiate(scoreDifferences, content.transform);
-        thisScoreDiff.GetComponent<VoterDifferences>().VoterSimilarity(voterScores);
+        GameObject thisVoteDiff;
+        thisVoteDiff = Instantiate(voteDifferences, content.transform);
+        thisVoteDiff.GetComponent<VoterDifferences>().VoterSimilarity(voterVotes);
     }
 }
