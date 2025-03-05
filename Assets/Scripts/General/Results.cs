@@ -118,6 +118,16 @@ public class Results : MonoBehaviour
             title = title.TrimEnd(' ', ',');
             title += "</size>\n";
 
+            // Maps the strings to an index for the table as full strings are too big
+            List<string> keys = new List<string>(indexValues.Keys);
+            title += "<size=30>";
+            foreach (string key in keys)
+            {
+                title += $"{key}, ";
+            }
+            title = title.TrimEnd(' ', ',');
+            title += "</size>\n";
+
             thisTableStats.GetComponent<Table>().SetTitle(title);
 
             foreach (var entry in indexValues)
