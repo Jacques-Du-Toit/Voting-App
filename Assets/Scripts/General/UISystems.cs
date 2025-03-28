@@ -126,6 +126,7 @@ public class UISystems : MonoBehaviour
         if (currentSystem >= voters)
         {
             whichVoter.text = "";
+            prevText.text = "Voting";
             nextText.text = "Options";
             title.text = "Results";
             results.GetComponent<Results>().RunResults(

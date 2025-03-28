@@ -61,42 +61,24 @@ public class RankSystem : MonoBehaviour, IVoteSystem
 
     public void MoveChoice(string choice, int direction)
     {
-        // Moves a choice up or down depending on direction
+        // Moves a choice up or down depending on direction and updates the votes
 
         Transform thisPos = choiceScripts[choice].gameObject.transform;
         int index = thisPos.GetSiblingIndex();
 
-        // NEED TO UPDATE THE ChoiceVotes AS WELL AND GET THE BUTTONS TO CALL THIS FUNCTION (probably from RankChoice script
-
-        /*
-         * Would need to update all the other choices as well if we wrap around
-        if (index == 0 && direction == 1)
-        {
-            thisPos.SetAsLastSibling();
-            ChoiceVotes[choice] = 0;
-
-        }
-        else if (index == (choices.Count-1) && direction == -1)
-        {
-            thisPos.SetAsFirstSibling();
-            ChoiceVotes[choice] = choices.Count - 1;
-        }
-        else
-        {
-            thisPos.SetSiblingIndex(index + direction);
-        }
-        */
+        // Check for trying to move when in top or last position
         if (
             (index == 0 && direction == 1) ||
             (index == (choices.Count - 1) && direction == -1)
             )
         { return; }
 
+        // Update the votes
         ChoiceVotes[choice] += direction; // Add to votes
-
         string otherChoice = parentPos.GetChild(index - direction).GetComponent<RankChoice>().choiceText.text;
         ChoiceVotes[otherChoice] -= direction;
 
+        // Update the positions
         thisPos.SetSiblingIndex(index - direction); // Going up decreases index
     }
 }
